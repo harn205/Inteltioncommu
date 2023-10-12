@@ -5,6 +5,7 @@ const mysql = require('mysql');
 
 router.get("/", async (req, res) => {
     try {
+        const { username } = req.body;
         var con = mysql.createConnection({
             host: "mysql-commu.mysql.database.azure.com",
             user: "azureadmin",
@@ -21,7 +22,7 @@ router.get("/", async (req, res) => {
                 return;
             }
 
-            con.query("SELECT * FROM user_profile", function (err, result, fields) {
+            con.query(`SELECT * FROM user_profile where username NOT IN ('${username}')`, function (err, result, fields) {
                 // Close the connection after the query has completed
                 con.end();
 

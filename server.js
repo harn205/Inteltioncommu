@@ -3,6 +3,7 @@ const port = 8000;
 const generateTokenRouter = require("./api/generate_token");
 const databaseRouter = require("./api/database");
 
+
 // for accepting post from data
 const bodyParser = require("express").json;
 
@@ -16,6 +17,8 @@ app.use(cors());
 
 app.use("/generate_token", generateTokenRouter);
 app.use("/database", databaseRouter);
+
+
 
 
 app.get("/", (req, res) => {

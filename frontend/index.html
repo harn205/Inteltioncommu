@@ -1,0 +1,119 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Internal Communication Service</title>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+</head>
+
+<body>
+    <!-- <img id="background-img" src="inteltion-bg.png" /> -->
+    <img src="https://www.inteltion.com/wp-content/uploads/2021/11/logo-inteltion.svg" alt="GULF Logo" id="logo"/>
+    <h4 id="title-text">Internal Communication Service</h4>
+    <input id="username" type="text" placeholder="Enter your name here..." style="margin-bottom:1em; width: 310px;" />
+
+    <button id="initialize-call-agent" type="button">Login</button>
+
+    <button id="logout-button" type="button" disabled="true">Logout</button>
+    <br>
+
+    <table id="data-table">
+        <thead>
+            <tr>
+                <th>Staff</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="table-body">
+        </tbody>
+    </table>
+
+    <label id="callee-username" for="selected-id">Selected ID:</label>
+    <input type="text" id="selected-id" readonly>
+
+
+
+    <script>
+        // Sample JSON data
+        const jsonData = [
+
+            {
+                username: "John",
+                communicationID: "8:acs:b503c892-8b6d-477a-afd7-7e6bedf00a0e_0000001b-c17d-332a-28c5-593a0d00a0f6"
+            },
+            {
+                username: "Bob",
+                communicationID: "8:acs:b503c892-8b6d-477a-afd7-7e6bedf00a0e_0000001b-c17d-61e3-d68a-084822009b0a"
+            },
+            {
+                username: "Taylor",
+                communicationID: "8:acs:b503c892-8b6d-477a-afd7-7e6bedf00a0e_0000001b-c17d-9851-f883-084822009e07"
+            },
+            {
+                username: "David",
+                communicationID: "8:acs:b503c892-8b6d-477a-afd7-7e6bedf00a0e_0000001b-c17d-c249-99c6-593a0d009fc0"
+            },
+            {
+                username: "Sofia",
+                communicationID: "8:acs:b503c892-8b6d-477a-afd7-7e6bedf00a0e_0000001b-c17e-1a37-28c5-593a0d00a123"
+            }
+        ]
+            ;
+
+
+        // Function to populate the table with names
+        function populateTable() {
+            const tableBody = document.getElementById("table-body");
+            jsonData.forEach(item => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${item.username}</td>
+                    <td><button class="select-button" data-id="${item.communicationID}">Select</button></td>`
+                    ;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Function to handle button clicks and update the selected ID
+        function handleButtonClick(event) {
+            if (event.target.classList.contains("select-button")) {
+                const selectedId = event.target.getAttribute("data-id");
+                document.getElementById("selected-id").value = selectedId;
+            }
+        }
+
+        // Function to perform an action when the "Call" button is clicked
+
+        // Add event listener for button clicks
+        document.getElementById("data-table").addEventListener("click", handleButtonClick);
+
+        // Populate the table with names
+        populateTable();
+    </script>
+    <br>
+    <!-- <input id="callee-username"
+            type="text"
+            placeholder="Enter callee's name Here"
+            style="margin-bottom:1em; width: 500px; display: block;"/> -->
+    <div id="mork">
+        <button id="start-call-button" type="button" disabled="true">Start Call</button>
+        <button id="hangup-call-button" type="button" disabled="true">Hang up Call</button>
+        <button id="accept-call-button" type="button" disabled="true">Accept Call</button>
+        <button id="start-video-button" type="button" disabled="true">Start Video</button>
+        <button id="stop-video-button" type="button" disabled="true">Stop Video</button>
+    </div>
+    <br>
+    <br>
+    <div id="connectedLabel" style="color: #13bb13;" hidden>Call is connected!</div>
+    <br>
+    <div id="remoteVideosGallery" style="width: 40%;color: #13bb13;" hidden>Remote participants' video streams:</div>
+    <br>
+    <div id="localVideoContainer" style="width: 30%;color: #13bb13;" hidden>Local video stream:</div>
+
+
+    <!-- points to the bundle generated from client.js -->
+    <script src="./main.js"></script>
+</body>
+
+</html>

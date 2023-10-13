@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Display JSON Data</title>
+</head>
+<body>
+    <table id="data-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="table-body">
+        </tbody>
+    </table>
+
+    <label for="selected-id">Selected ID:</label>
+    <input type="text" id="selected-id" readonly>
+
+    <button id="call-button">Call</button>
+
+    <script>
+        // Sample JSON data
+        const jsonData = [
+            { id: 1, name: "pun" },
+            { id: 2, name: "poon" },
+            { id: 3, name: "mork" },
+            { id: 4, name: "peanut" },
+            { id: 5, name: "mo" },
+            { id: 6, name: "ling" },
+            { id: 7, name: "au" },
+            { id: 8, name: "new" }
+        ];
+
+        // Function to populate the table with names
+        function populateTable() {
+            const tableBody = document.getElementById("table-body");
+            jsonData.forEach(item => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${item.name}</td>
+                    <td><button class="select-button" data-id="${item.id}">Select</button></td>`
+                ;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Function to handle button clicks and update the selected ID
+        function handleButtonClick(event) {
+            if (event.target.classList.contains("select-button")) {
+                const selectedId = event.target.getAttribute("data-id");
+                document.getElementById("selected-id").value = selectedId;
+            }
+        }
+
+        // Function to perform an action when the "Call" button is clicked
+        document.getElementById("call-button").addEventListener("click", function() {
+            // Add your action here
+            alert("Call button clicked!");
+        });
+
+        // Add event listener for button clicks
+        document.getElementById("data-table").addEventListener("click", handleButtonClick);
+
+        // Populate the table with names
+        populateTable();
+    </script>
+</body>
+</html>
